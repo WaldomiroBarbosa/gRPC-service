@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPCService";
+
+// Mensagens para operações numéricas
+message NumberOperands 
+{
+    int32 first_op = 1;
+    int32 second_op = 2;
+    int32 op_type = 3; // Pode ser 1 para adição, 2 para subtração, etc.
+}
+
+message OperationResult 
+{
+    int32 result = 1;
+}
+
+// Mensagens para manipulação de strings
+message StringMessage 
+{
+    string input = 1;
+}
+
+message StringResult 
+{
+    string output = 1;
+}
+
+// Mensagens para operações em arquivo .txt
+message FileOperationRequest 
+{
+    string content = 1;   // Novo conteúdo a ser escrito no arquivo
+}
+
+message FileOperationResult 
+{
+    bool success = 1;     // Indica se a operação foi bem-sucedida
+}
+
+// Definição do serviço com três RPCs
+service UtilityService 
+{
+    rpc Calculate (NumberOperands) returns (OperationResult);
+    rpc TransformString (StringMessage) returns (StringResult);
+    rpc ModifyFile (FileOperationRequest) returns (FileOperationResult);
+}
